@@ -14,13 +14,29 @@ namespace UsersList
         static void Main(string[] args)
         {
 
+            DBControll controller = new DBControll();
 
 
-            bool exit = false;
+               
+                //   username,    firstname,  lastname,   age,    phone
+                List<string> user = new List<string>();
+                List<List<string>> usersList = new List<List<string>>();
+             
+                
+
+        bool exit = false;
             while (exit != true)
             {
                 //clear screen and show main menu
                 showMainMenu();
+                //controller.insertToUsers("TanblanKhan", "Jamshid", "Jamshidi", 30, "09203040555");
+                foreach (var R2ow in controller.showAllUsers())
+                {
+                    Console.WriteLine(R2ow+":::\n");
+                    foreach (var R3ow in R2ow)
+                        Console.WriteLine(R3ow+"\n");
+                }
+                
                 //get user choice
                 switch (getKey())
                 {
@@ -87,6 +103,7 @@ namespace UsersList
         }
 
 
+        
 
 
         /// <summary>
@@ -124,6 +141,26 @@ namespace UsersList
         }
 
         /// <summary>
+        /// yourText >> (user input)
+        /// </summary>
+        /// <param name="yourText">your text question</param>
+        /// <returns>String</returns>
+        static string getText(string yourText)
+        {
+            Console.Write(yourText+">> ");
+            return Console.ReadLine(); ;
+        }
+        /// <summary>
+        /// >> Read Line
+        /// </summary>
+        /// <returns>String</returns>
+        static string getText()
+        {
+            Console.Write(">> ");
+            return Console.ReadLine(); ;
+        }
+
+        /// <summary>
         /// clear screen and write line
         /// </summary>
         /// <param name="str">your text</param>
@@ -133,6 +170,8 @@ namespace UsersList
             Console.WriteLine(str);
         }
 
+
+        ///static void 
 
 
 
