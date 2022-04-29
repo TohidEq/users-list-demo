@@ -10,20 +10,15 @@ namespace UsersList
 {
     internal class DBControll
     {
+        private DseCluster cluster;
+
+        /// <summary>
+        /// default
+        /// </summary>
+        public DBControll()
+        {
+
+        }
     }
 }
 
-
-
-/*var cluster = DseCluster.Builder()
-            .AddContactPoint("localhost")
-            .Build();
-
-var session = cluster.Connect();
-
-var row = session.Execute("select * from system.local");
-foreach (var R2ow in row) 
-{
-    foreach(var R3ow in R2ow)
-    Console.WriteLine(R3ow);
-}*/

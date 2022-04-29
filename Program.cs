@@ -6,27 +6,34 @@ using System.Threading.Tasks;
 using Cassandra;
 using Dse;
 
+
 namespace UsersList
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+
+
+
             bool exit = false;
             while (exit != true)
             {
                 //clear screen and show main menu
                 showMainMenu();
-
                 //get user choice
                 switch (getKey())
                 {
                     case '1': //add user
+                    case 'a':
+                    case 'A':
 
                         break;
 
 
                     case '2': //search user
+                    case 's':
+                    case 'S':
 
                         break;
 
@@ -51,7 +58,10 @@ namespace UsersList
                         break;
 
 
-                    case '7': //exit
+                    case '0'://exit
+                    case 'q':
+                    case 'Q':
+                    case '7':
                         exit = true;
 
                         clearPrint("Bye!");
@@ -71,18 +81,7 @@ namespace UsersList
 
 
 
-            /*var cluster = DseCluster.Builder()
-                        .AddContactPoint("localhost")
-                        .Build();
-
-            var session = cluster.Connect();
-
-            var row = session.Execute("select * from system.local");
-            foreach (var R2ow in row) 
-            {
-                foreach(var R3ow in R2ow)
-                Console.WriteLine(R3ow);
-            }*/
+            
 
 
         }
@@ -96,13 +95,13 @@ namespace UsersList
         static void showMainMenu()
         {
             clearPrint("----MENU----\n" +
-                        "1.Add user\n" +
-                        "2.Search user\n" +
+                        "1.Add user(a)\n" +
+                        "2.Search user((s)\n" +
                         "3.Delete user\n" +
                         "4.Show users\n" +
                         "5.Save users to a file\n" +
                         "6.Load users from a file\n" +
-                        "7.Exit");
+                        "7.Exit(0, Q)");
 
         }
 
