@@ -45,15 +45,13 @@ namespace UsersList
             }
         }
 
-        public bool addText(string newText)
+        public void addText(string newText)
         {
             File.WriteAllText(path, readFile() + newText);
-            return true;
         }
-        public bool addLine(string newLine)
+        public void addLine(string newLine)
         {
             File.WriteAllText(path, ((readFile() != "") ? readFile() + "\n" : "") + newLine);
-            return true;
         }
         
 
