@@ -35,7 +35,7 @@ namespace UsersList
 
         public String readFile() 
         {
-            if (File.Exists(path))
+            if (existFile())
             {
                 return File.ReadAllText(path); ;
             }
@@ -44,7 +44,11 @@ namespace UsersList
                 return "";
             }
         }
-
+        public bool existFile()
+        {
+            return File.Exists(path);
+            
+        }
         public void addText(string newText)
         {
             File.WriteAllText(path, readFile() + newText);

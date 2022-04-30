@@ -65,7 +65,7 @@ namespace UsersList
 
 
                     case '5': //save users
-
+                        saveUsers();
                         break;
 
 
@@ -400,7 +400,6 @@ namespace UsersList
         static void showUsers()
         {
             bool exit = false;
-            string input = "";
             while (!exit)
             {
                 showShowUsersMenu();
@@ -566,6 +565,11 @@ namespace UsersList
             }
         }
 
+        static bool validateFileName(string filename)
+        {
+            return Regex.IsMatch(filename, @"^[A-Za-z0-9.-]{3,20}$");
+        }
+
 
 
         //=====================================//
@@ -665,10 +669,10 @@ namespace UsersList
 
         static void sortUsersByFirstName()
         {
-            //just usernames ->sort
+            //just FirstName ->sort
             List<string> sort = new List<string>();
 
-            //get all usernames and put to sort list
+            //get all FirstName and put to sort list
             foreach (var i in controller.getAllNames())
                 foreach (string name in i)
                     sort.Add(name);
@@ -713,10 +717,10 @@ namespace UsersList
 
         static void sortUsersByLastName()
         {
-            //just usernames ->sort
+            //just LastNames ->sort
             List<string> sort = new List<string>();
 
-            //get all usernames and put to sort list
+            //get all LastNames and put to sort list
             foreach (var i in controller.getAllLastNames())
                 foreach (string lname in i)
                     sort.Add(lname);
@@ -761,10 +765,10 @@ namespace UsersList
 
         static void sortUsersByAge()
         {
-            //just usernames ->sort
+            //just Ages ->sort
             List<string> sort = new List<string>();
 
-            //get all usernames and put to sort list
+            //get all Ages and put to sort list
             foreach (var i in controller.getAllAges())
                 foreach (int name in i)
                     sort.Add(name.ToString());
@@ -809,10 +813,10 @@ namespace UsersList
 
         static void sortUsersByPhone()
         {
-            //just usernames ->sort
+            //just Phones ->sort
             List<string> sort = new List<string>();
 
-            //get all usernames and put to sort list
+            //get all Phones and put to sort list
             foreach (var i in controller.getAllPhones())
                 foreach (string phone in i)
                     sort.Add(phone);
@@ -854,6 +858,84 @@ namespace UsersList
 
         }
 
+
+        //=====================================//
+        //========= SAVE/LOAD USERS ===========//
+        //=====================================//
+
+        static void saveUsers()
+        {
+            //just usernames ->sort
+            List<string> sort = new List<string>();
+
+            //get all usernames and put to sort list
+            foreach (var i in controller.getAllUsernames())
+                foreach (string name in i)
+                    sort.Add(name);
+
+
+            // Sorting sort list
+            sort.Sort();
+
+            clearPrint("----SAVE----");
+
+            string filename = getText("file name(default: test.txt)[A-Z a-z .]");
+            Console.WriteLine((validateFileName(filename)) ? "your file name is ok" : "your file name is invalid... default name: test.txt");
+            string data = "";
+            string forColon = "";
+            try
+            {
+                FileControll file = new FileControll(@"D:\" + ((validateFileName(filename)) ? filename : "test.txt"));
+                if (!file.existFile())
+                {
+                    foreach (var item in sort)
+                    {
+                        foreach (var i in controller.findByUsername(item))
+                        {
+                            forColon = "";
+                            data = "";
+                            foreach (var j in i)
+                            {
+                                data += forColon + j.ToString();
+                                forColon = ":";
+                            }
+                            file.addLine(data);
+                        }
+                    }
+
+
+                    Console.WriteLine("\n saved");
+                }
+                else
+                {
+
+                    Console.WriteLine("\n this file exist...\n" +
+                                    "pls try again and test another file name.\n" +
+                                    "press any key to exit...");
+                }
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\n error \n"+e.Message);
+            }
+            finally
+            {
+                getKey();
+            }
+
+            
+
+
+            //////////////////
+            //debug and test//
+            /*foreach (var i in sort)
+                Console.WriteLine(i);*/
+            //getKey();
+            //////////////////
+
+
+        }
 
     }
 }
