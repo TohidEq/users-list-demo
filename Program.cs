@@ -60,7 +60,7 @@ namespace UsersList
 
 
                     case '4': //show users
-
+                        showUsers();
                         break;
 
 
@@ -115,7 +115,7 @@ namespace UsersList
                         "1.Add user(A)\n" +
                         "2.Search user(S)\n" +
                         "3.Delete user\n" +
-                        "4.Show users\n" +
+                        "4.Show users/Sort\n" +
                         "5.Save users to a file\n" +
                         "6.Load users from a file\n" +
                         "7.Exit(0, Q)");
@@ -382,7 +382,88 @@ namespace UsersList
 
 
 
-        
+        /// <summary>
+        /// clear screen and print show users menu
+        /// </summary>
+        static void showShowUsersMenu()
+        {
+            clearPrint("----SHOW USERS----\n" +
+                        "1.sort by Username(U)\n" +
+                        "2.sort by First Name(F)\n" +
+                        "3.sort by Last Name(L)\n" +
+                        "4.sort by Age(A)\n" +
+                        "5.sort by Phone(P)\n" +
+                        "6.default(D)\n" +
+                        "7.Exit(0, Q)");
+
+        }
+        static void showUsers()
+        {
+            bool exit = false;
+            string input = "";
+            while (!exit)
+            {
+                showShowUsersMenu();
+                switch (getKey())
+                {
+                    case 'u':
+                    case 'U':
+                    case '1'://sort BY Username
+                             //showUsersByUsername();
+
+                        getKey();
+                        break;
+                    case 'f':
+                    case 'F':
+                    case '2'://sort BY First name
+                             //showUsersByFirstName();
+
+                        getKey();
+                        break;
+                    case 'l':
+                    case 'L':
+                    case '3'://sort BY Last name
+                             //showUsersByLastName();
+
+                        getKey();
+                        break;
+                    case 'a':
+                    case 'A':
+                    case '4'://sort BY Age
+                             //showUsersByAge();
+
+                        getKey();
+                        break;
+                    case 'p':
+                    case 'P':
+                    case '5'://sort BY Phone
+                             //showUsersByPhone();
+
+                        getKey();
+                        break;
+                    case 'd':
+                    case 'D':
+                    case '6'://sort default
+                        showUsersByDefault();
+
+                        getKey();
+                        break;
+                    case 'Q':
+                    case 'q':
+                    case '0':
+                    case '7':// Exit
+                        exit = true;
+                        break;
+                    default:
+                        clearPrint("Wrong choice!");
+                        getKey();
+                        break;
+                }
+            } 
+        }
+
+
+
         //=====================================//
         //======== my custom functions ========//
         //=====================================//
@@ -465,9 +546,6 @@ namespace UsersList
         {
             return Regex.IsMatch(phone, @"^[\+]?[(]?[0-9]{3}[)]?[0-9]{3}?[0-9]{4,6}$");
         }
-        
-
-
         /// <summary>
         /// check user exist or not
         /// </summary>
@@ -490,6 +568,32 @@ namespace UsersList
         }
 
 
+
+        //=====================================//
+        //=========== SHOW USERS ==============//
+        //=====================================//
+
+        static void showUsersByDefault()
+        {
+            Dse.RowSet rows = controller.getAllUsers();
+            clearPrint("----RESULT----");
+            
+            int counter = 0;
+            foreach (var i in rows)
+            {
+                if (counter == 0)
+                    Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
+                counter++;
+                Console.Write("\n" + counter + ". ");
+                foreach (var j in i)
+                {
+                    Console.Write(j + "\t");
+                }
+
+            }
+            
+            Console.WriteLine("\n" + counter + " user found");
+        }
 
     }
 
