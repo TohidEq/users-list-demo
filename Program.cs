@@ -28,7 +28,7 @@ namespace UsersList
             
 
             bool exit = false;
-            while (exit != true)
+            while (!exit)
             {
                 //clear screen and show main menu
                 showMainMenu();
@@ -48,7 +48,9 @@ namespace UsersList
                     case '2': //search user
                     case 's':
                     case 'S':
-
+                        
+                        searchUser();
+                        getKey();
                         break;
 
 
@@ -85,7 +87,7 @@ namespace UsersList
 
                     default:
                         clearPrint("Wrong choice!");
-                        Console.ReadKey();
+                        getKey();
                         break;
 
                 }
@@ -120,6 +122,8 @@ namespace UsersList
 
         }
         
+
+
         /// <summary>
         /// clear screen and print search menu
         /// </summary>
@@ -135,6 +139,171 @@ namespace UsersList
 
         }
 
+        static void searchUser()
+        {
+            bool exit = false;
+            string input = "";
+            while (!exit)
+            {
+                showSearchMenu();
+                switch (getKey())
+                {
+                    case 'u':
+                    case 'U':
+                    case '1':// BY Username
+                        input = getText("username");
+                        if (validateUsername(input))
+                        {
+                            clearPrint("----RESULT----");
+                            int counter = 0;
+                            foreach(var i in controller.findByUsername(input))
+                            {
+                                if (counter == 0)
+                                    Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
+                                counter++;
+                                Console.Write("\n" + counter + ". ");
+                                foreach (var j in i)
+                                {
+                                    Console.Write(j + "\t");
+                                }
+
+                            }
+                            Console.WriteLine("\n" + counter +" user found");
+                        }
+                        else
+                        {
+                            Console.WriteLine("invalid");
+                        }
+                        getKey();
+                        break;
+                    case 'F':
+                    case 'f':
+                    case '2':// BY First Name
+                        input = getText("First Name");
+                        if (validateName(input))
+                        {
+                            clearPrint("----RESULT----");
+                            int counter = 0;
+                            foreach (var i in controller.findByFirstname(input))
+                            {
+                                if (counter == 0)
+                                    Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
+                                counter++;
+                                Console.Write("\n" + counter + ". ");
+                                foreach (var j in i)
+                                {
+                                    Console.Write(j + "\t");
+                                }
+
+                            }
+                            Console.WriteLine("\n" + counter + " user found");
+                        }
+                        else
+                        {
+                            Console.WriteLine("invalid");
+                        }
+                        getKey();
+                        break;
+                    case 'l':
+                    case 'L':
+                    case '3':// BY Last Name
+                        input = getText("Last Name");
+                        if (validateName(input))
+                        {
+                            clearPrint("----RESULT----");
+                            int counter = 0;
+                            foreach (var i in controller.findByLastname(input))
+                            {
+                                if (counter == 0)
+                                    Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
+                                counter++;
+                                Console.Write("\n" + counter + ". ");
+                                foreach (var j in i)
+                                {
+                                    Console.Write(j + "\t");
+                                }
+
+                            }
+                            Console.WriteLine("\n"+counter + " user found");
+                        }
+                        else
+                        {
+                            Console.WriteLine("invalid");
+                        }
+                        getKey();
+                        break;
+                    case 'A':
+                    case 'a':
+                    case '4':// BY Age
+                        input = getText("Age");
+                        if (validateAge(input))
+                        {
+                            clearPrint("----RESULT----");
+                            int counter = 0;
+                            foreach (var i in controller.findByAge(input))
+                            {
+                                if(counter==0)
+                                    Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
+                                counter++;
+                                Console.Write("\n" + counter + ". ");
+                                foreach (var j in i)
+                                {
+                                    Console.Write(j + "\t");
+                                }
+
+                            }
+                            Console.WriteLine("\n" + counter + " user found");
+                        }
+                        else
+                        {
+                            Console.WriteLine("invalid");
+                        }
+                        getKey();
+                        break;
+                    case 'p':
+                    case 'P':
+                    case '5':// BY Phone
+                        input = getText("Phone");
+                        if (validatePhone(input))
+                        {
+                            clearPrint("----RESULT----");
+                            int counter = 0;
+                            foreach (var i in controller.findByPhone(input))
+                            {
+                                if (counter == 0)
+                                    Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
+                                counter++;
+                                Console.Write("\n" + counter + ". ");
+                                foreach (var j in i)
+                                {
+                                    Console.Write(j + "\t");
+                                }
+
+                            }
+                            Console.WriteLine("\n" + counter + " user found");
+                        }
+                        else
+                        {
+                            Console.WriteLine("invalid");
+                        }
+                        getKey();
+                        break;
+                    case 'Q':
+                    case 'q':
+                    case '0':
+                    case '6':// Exit
+                        exit=true;
+                        break;
+                    default:
+                        clearPrint("Wrong choice!");
+                        getKey();
+                        break;
+                }
+                
+            }
+            
+
+        }
 
 
 
@@ -177,10 +346,10 @@ namespace UsersList
 
 
 
-
-        //=====================================
-        //======== my custom functions ========
-        //=====================================
+        
+        //=====================================//
+        //======== my custom functions ========//
+        //=====================================//
 
         /// <summary>
         /// Read Key and Get Char
@@ -199,7 +368,7 @@ namespace UsersList
         /// <returns>String</returns>
         static string getText(string yourText)
         {
-            Console.Write(yourText+">> ");
+            Console.Write("\n"+yourText+">> ");
             return Console.ReadLine(); ;
         }
         /// <summary>
@@ -223,14 +392,44 @@ namespace UsersList
         }
 
 
+
+        //=====================================//
+        //=========== VALIDATIONS =============//
+        //=====================================//
+
+        /// <summary>
+        /// Validation
+        /// </summary>
+        /// <returns>bool</returns>
         static bool validate(string username, string firstname, string lastname, string birthyear, string phone)
         {
-            return (Regex.IsMatch(username, @"^[A-Za-z0-9_-]{3,20}$") &&
-               Regex.IsMatch(firstname, @"^[A-Za-z]{3,20}$") &&
-               Regex.IsMatch(lastname, @"^[A-Za-z]{3,20}$") &&
-               Regex.IsMatch(birthyear, @"^[0-9]{4}$") &&
-               Regex.IsMatch(phone, @"^[\+]?[(]?[0-9]{3}[)]?[0-9]{3}?[0-9]{4,6}$"));
-        } 
+            return (validateUsername(username)  &&
+                    validateName(firstname)     &&
+                    validateName(lastname)      &&
+                    validateBirthYear(birthyear)&&
+                    validatePhone(phone) );
+        }
+        static bool validateUsername(string username)
+        {
+            return Regex.IsMatch(username, @"^[A-Za-z0-9_-]{3,20}$");
+        }
+        static bool validateName(string name)
+        {
+            return Regex.IsMatch(name, @"^[A-Za-z]{3,20}$");
+        }
+        static bool validateBirthYear(string birthyear)
+        {
+            return Regex.IsMatch(birthyear, @"^[0-9]{4}$");
+        }
+        static bool validateAge(string age)
+        {
+            return Regex.IsMatch(age, @"^[0-9]{1,3}$");
+        }
+        static bool validatePhone(string phone)
+        {
+            return Regex.IsMatch(phone, @"^[\+]?[(]?[0-9]{3}[)]?[0-9]{3}?[0-9]{4,6}$");
+        }
+        
 
 
 
