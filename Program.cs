@@ -32,17 +32,17 @@ namespace UsersList
             while (!exit)
             {
                 //clear screen and show main menu
-                showMainMenu();
+                ShowMainMenu();
                 
                 
                 //get user choice
-                switch (getKey())
+                switch (GetKey())
                 {
                     case '1': //add user
                     case 'a':
                     case 'A':
-                        addUser();
-                        getKey();
+                        AddUser();
+                        GetKey();
                         break;
 
 
@@ -50,28 +50,28 @@ namespace UsersList
                     case 's':
                     case 'S':
                         
-                        searchUser();
-                        getKey();
+                        SearchUser();
+                        GetKey();
                         break;
 
 
                     case '3': //delete user
-                        deleteUser();
+                        DeleteUser();
                         break;
 
 
                     case '4': //show users
-                        showUsers();
+                        ShowUsers();
                         break;
 
 
                     case '5': //save users
-                        saveUsers();
+                        SaveUsers();
                         break;
 
 
                     case '6': //load users
-                        loadUsers();
+                        LoadUsers();
                         break;
 
                         
@@ -82,14 +82,14 @@ namespace UsersList
                     case '7':
                         exit = true;
 
-                        clearPrint("Bye!");
+                        ClearPrint("Bye!");
 
                         break;
 
 
                     default:
-                        clearPrint("Wrong choice!");
-                        getKey();
+                        ClearPrint("Wrong choice!");
+                        GetKey();
                         break;
 
                 }
@@ -111,9 +111,9 @@ namespace UsersList
         /// <summary>
         /// clear screen and print main menu
         /// </summary>
-        static void showMainMenu()
+        static void ShowMainMenu()
         {
-            clearPrint("----MENU----\n" +
+            ClearPrint("----MENU----\n" +
                         "1.Add user(A)\n" +
                         "2.Search user(S)\n" +
                         "3.Delete user\n" +
@@ -129,9 +129,9 @@ namespace UsersList
         /// <summary>
         /// clear screen and print search menu
         /// </summary>
-        static void showSearchMenu()
+        static void ShowSearchMenu()
         {
-            clearPrint("----SEARCH----\n" +
+            ClearPrint("----SEARCH----\n" +
                         "1.by Username(U)\n" +
                         "2.by First Name(F)\n" +
                         "3.by Last Name(L)\n" +
@@ -141,24 +141,24 @@ namespace UsersList
 
         }
 
-        static void searchUser()
+        static void SearchUser()
         {
             bool exit = false;
             string input = "";
             while (!exit)
             {
-                showSearchMenu();
-                switch (getKey())
+                ShowSearchMenu();
+                switch (GetKey())
                 {
                     case 'u':
                     case 'U':
                     case '1':// BY Username
-                        input = getText("username");
-                        if (validateUsername(input))
+                        input = GetText("username");
+                        if (ValidateUsername(input))
                         {
-                            clearPrint("----RESULT----");
+                            ClearPrint("----RESULT----");
                             int counter = 0;
-                            foreach(var i in controller.findByUsername(input))
+                            foreach(var i in controller.FindByUsername(input))
                             {
                                 if (counter == 0)
                                     Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
@@ -176,17 +176,17 @@ namespace UsersList
                         {
                             Console.WriteLine("invalid");
                         }
-                        getKey();
+                        GetKey();
                         break;
                     case 'F':
                     case 'f':
                     case '2':// BY First Name
-                        input = getText("First Name");
-                        if (validateName(input))
+                        input = GetText("First Name");
+                        if (ValidateName(input))
                         {
-                            clearPrint("----RESULT----");
+                            ClearPrint("----RESULT----");
                             int counter = 0;
-                            foreach (var i in controller.findByFirstname(input))
+                            foreach (var i in controller.FindByFirstname(input))
                             {
                                 if (counter == 0)
                                     Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
@@ -204,17 +204,17 @@ namespace UsersList
                         {
                             Console.WriteLine("invalid");
                         }
-                        getKey();
+                        GetKey();
                         break;
                     case 'l':
                     case 'L':
                     case '3':// BY Last Name
-                        input = getText("Last Name");
-                        if (validateName(input))
+                        input = GetText("Last Name");
+                        if (ValidateName(input))
                         {
-                            clearPrint("----RESULT----");
+                            ClearPrint("----RESULT----");
                             int counter = 0;
-                            foreach (var i in controller.findByLastname(input))
+                            foreach (var i in controller.FindByLastname(input))
                             {
                                 if (counter == 0)
                                     Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
@@ -232,17 +232,17 @@ namespace UsersList
                         {
                             Console.WriteLine("invalid");
                         }
-                        getKey();
+                        GetKey();
                         break;
                     case 'A':
                     case 'a':
                     case '4':// BY Age
-                        input = getText("Age");
-                        if (validateAge(input))
+                        input = GetText("Age");
+                        if (ValidateAge(input))
                         {
-                            clearPrint("----RESULT----");
+                            ClearPrint("----RESULT----");
                             int counter = 0;
-                            foreach (var i in controller.findByAge(input))
+                            foreach (var i in controller.FindByAge(input))
                             {
                                 if(counter==0)
                                     Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
@@ -260,17 +260,17 @@ namespace UsersList
                         {
                             Console.WriteLine("invalid");
                         }
-                        getKey();
+                        GetKey();
                         break;
                     case 'p':
                     case 'P':
                     case '5':// BY Phone
-                        input = getText("Phone");
-                        if (validatePhone(input))
+                        input = GetText("Phone");
+                        if (ValidatePhone(input))
                         {
-                            clearPrint("----RESULT----");
+                            ClearPrint("----RESULT----");
                             int counter = 0;
-                            foreach (var i in controller.findByPhone(input))
+                            foreach (var i in controller.FindByPhone(input))
                             {
                                 if (counter == 0)
                                     Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
@@ -288,7 +288,7 @@ namespace UsersList
                         {
                             Console.WriteLine("invalid");
                         }
-                        getKey();
+                        GetKey();
                         break;
                     case 'Q':
                     case 'q':
@@ -297,8 +297,8 @@ namespace UsersList
                         exit=true;
                         break;
                     default:
-                        clearPrint("Wrong choice!");
-                        getKey();
+                        ClearPrint("Wrong choice!");
+                        GetKey();
                         break;
                 }
                 
@@ -307,19 +307,19 @@ namespace UsersList
 
         }
 
-        static void deleteUser()
+        static void DeleteUser()
         {
-            clearPrint("----DELETE USER----");
-            string username = getText("username");
-            clearPrint("----CHECKING----");
-            if (isUserExistByUsername(username) == 1) // if user exist
+            ClearPrint("----DELETE USER----");
+            string username = GetText("username");
+            ClearPrint("----CHECKING----");
+            if (IsUserExistByUsername(username) == 1) // if user exist
             {
                 Console.WriteLine(" r u sure? (Y/N)");
-                char x = getKey();
+                char x = GetKey();
                 Console.WriteLine("");
                 if (x == 'y' || x == 'Y')
                 {
-                    controller.deleteUser(username);
+                    controller.DeleteUser(username);
                     
                 }
                 else
@@ -328,7 +328,7 @@ namespace UsersList
                 }
                 
             }
-            else if (isUserExistByUsername(username) == 0) // if user doesnt exist
+            else if (IsUserExistByUsername(username) == 0) // if user doesnt exist
             {
                 Console.WriteLine("this user doesnt exist!");
             }
@@ -337,34 +337,34 @@ namespace UsersList
                 Console.WriteLine("----ERROR----\n" +
                                     "invalid username...");
             }
-            getKey();
+            GetKey();
         }
 
-        static void addUser()
+        static void AddUser()
         {
             DateTime now = DateTime.Now;
             int age = 0;
-            clearPrint("----ADD USER----");
-            string username = getText("username[Aa-Zz, 0-9]");
-            string firstname = getText("first name");
-            string lastname = getText("last name");
-            string birthyear = getText("birth year");
-            string phone = getText("phone");
+            ClearPrint("----ADD USER----");
+            string username = GetText("username[Aa-Zz, 0-9]");
+            string firstname = GetText("first name");
+            string lastname = GetText("last name");
+            string birthyear = GetText("birth year");
+            string phone = GetText("phone");
 
-            clearPrint("----CHECKING----");
+            ClearPrint("----CHECKING----");
             //validating input data
-            if (isUserExistByUsername(username) == 1)
+            if (IsUserExistByUsername(username) == 1)
             {
                 Console.WriteLine("----ERROR----");
                 Console.WriteLine("a user with this username is already exist");
             }
-            else if(validate(username,firstname,lastname,birthyear,phone))
+            else if(Validate(username,firstname,lastname,birthyear,phone))
             {
                 age = now.Year - Convert.ToInt32(birthyear);
                 if(age > 0)
                 {
                     Console.WriteLine("everything is fine");
-                    controller.insertToUsers(username, firstname, lastname, age, phone);
+                    controller.InsertToUsers(username, firstname, lastname, age, phone);
                     Console.WriteLine("successful!");
                 }
                 else
@@ -387,9 +387,9 @@ namespace UsersList
         /// <summary>
         /// clear screen and print show users menu
         /// </summary>
-        static void showShowUsersMenu()
+        static void ShowShowUsersMenu()
         {
-            clearPrint("----SHOW USERS----\n" +
+            ClearPrint("----SHOW USERS----\n" +
                         "1.sort by Username(U)\n" +
                         "2.sort by First Name(F)\n" +
                         "3.sort by Last Name(L)\n" +
@@ -399,54 +399,54 @@ namespace UsersList
                         "7.Exit(0, Q)");
 
         }
-        static void showUsers()
+        static void ShowUsers()
         {
             bool exit = false;
             while (!exit)
             {
-                showShowUsersMenu();
-                switch (getKey())
+                ShowShowUsersMenu();
+                switch (GetKey())
                 {
                     case 'u':
                     case 'U':
                     case '1'://sort BY Username
-                        sortUsersByUsername();
-                        getKey();
+                        SortUsersByUsername();
+                        GetKey();
                         break;
                     case 'f':
                     case 'F':
                     case '2'://sort BY First name
-                        sortUsersByFirstName();
+                        SortUsersByFirstName();
 
-                        getKey();
+                        GetKey();
                         break;
                     case 'l':
                     case 'L':
                     case '3'://sort BY Last name
-                        sortUsersByLastName();
+                        SortUsersByLastName();
 
-                        getKey();
+                        GetKey();
                         break;
                     case 'a':
                     case 'A':
                     case '4'://sort BY Age
-                        sortUsersByAge();
+                        SortUsersByAge();
 
-                        getKey();
+                        GetKey();
                         break;
                     case 'p':
                     case 'P':
                     case '5'://sort BY Phone
-                        sortUsersByPhone();
+                        SortUsersByPhone();
 
-                        getKey();
+                        GetKey();
                         break;
                     case 'd':
                     case 'D':
                     case '6'://show default
-                        showUsersByDefault();
+                        ShowUsersByDefault();
 
-                        getKey();
+                        GetKey();
                         break;
                     case 'Q':
                     case 'q':
@@ -455,8 +455,8 @@ namespace UsersList
                         exit = true;
                         break;
                     default:
-                        clearPrint("Wrong choice!");
-                        getKey();
+                        ClearPrint("Wrong choice!");
+                        GetKey();
                         break;
                 }
             } 
@@ -472,7 +472,7 @@ namespace UsersList
         /// Read Key and Get Char
         /// </summary>
         /// <returns>KeyChar</returns>
-        static char getKey()
+        static char GetKey()
         {
             char i = Console.ReadKey().KeyChar;
             return i;
@@ -483,7 +483,7 @@ namespace UsersList
         /// </summary>
         /// <param name="yourText">your text question</param>
         /// <returns>String</returns>
-        static string getText(string yourText)
+        static string GetText(string yourText)
         {
             Console.Write("\n"+yourText+">> ");
             return Console.ReadLine(); ;
@@ -492,7 +492,7 @@ namespace UsersList
         /// >> Read Line
         /// </summary>
         /// <returns>String</returns>
-        static string getText()
+        static string GetText()
         {
             Console.Write(">> ");
             return Console.ReadLine(); ;
@@ -502,7 +502,7 @@ namespace UsersList
         /// clear screen and write line
         /// </summary>
         /// <param name="str">your text</param>
-        static void clearPrint(string str)
+        static void ClearPrint(string str)
         {
             Console.Clear();
             Console.WriteLine(str);
@@ -518,31 +518,31 @@ namespace UsersList
         /// Validation
         /// </summary>
         /// <returns>bool</returns>
-        static bool validate(string username, string firstname, string lastname, string birthyear, string phone)
+        static bool Validate(string username, string firstname, string lastname, string birthyear, string phone)
         {
-            return (validateUsername(username)  &&
-                    validateName(firstname)     &&
-                    validateName(lastname)      &&
-                    validateBirthYear(birthyear)&&
-                    validatePhone(phone) );
+            return (ValidateUsername(username)  &&
+                    ValidateName(firstname)     &&
+                    ValidateName(lastname)      &&
+                    ValidateBirthYear(birthyear)&&
+                    ValidatePhone(phone) );
         }
-        static bool validateUsername(string username)
+        static bool ValidateUsername(string username)
         {
             return Regex.IsMatch(username, @"^[A-Za-z0-9_-]{3,20}$");
         }
-        static bool validateName(string name)
+        static bool ValidateName(string name)
         {
             return Regex.IsMatch(name, @"^[A-Za-z]{3,20}$");
         }
-        static bool validateBirthYear(string birthyear)
+        static bool ValidateBirthYear(string birthyear)
         {
             return Regex.IsMatch(birthyear, @"^[0-9]{4}$");
         }
-        static bool validateAge(string age)
+        static bool ValidateAge(string age)
         {
             return Regex.IsMatch(age, @"^[0-9]{1,3}$");
         }
-        static bool validatePhone(string phone)
+        static bool ValidatePhone(string phone)
         {
             return Regex.IsMatch(phone, @"^[\+]?[(]?[0-9]{3}[)]?[0-9]{3}?[0-9]{4,6}$");
         }
@@ -551,11 +551,11 @@ namespace UsersList
         /// </summary>
         /// <param name="username">username</param>
         /// <returns>1=exist, 0=not exist, -1=invalid username</returns>
-        static int isUserExistByUsername(string username)
+        static int IsUserExistByUsername(string username)
         {
-            if (validateUsername(username))
+            if (ValidateUsername(username))
             {
-                foreach (var i in controller.findByUsername(username))
+                foreach (var i in controller.FindByUsername(username))
                 {
                     return 1;
                 }
@@ -567,7 +567,7 @@ namespace UsersList
             }
         }
 
-        static bool validateFileName(string filename)
+        static bool ValidateFileName(string filename)
         {
             return Regex.IsMatch(filename, @"^[A-Za-z0-9.-]{3,20}$");
         }
@@ -578,10 +578,10 @@ namespace UsersList
         //=========== SHOW USERS ==============//
         //=====================================//
 
-        static void showUsersByDefault()
+        static void ShowUsersByDefault()
         {
-            Dse.RowSet rows = controller.getAllUsers();
-            clearPrint("----RESULT----");
+            Dse.RowSet rows = controller.GetAllUsers();
+            ClearPrint("----RESULT----");
             
             int counter = 0;
             foreach (var i in rows)
@@ -599,10 +599,10 @@ namespace UsersList
             
             Console.WriteLine("\n" + counter + " user found");
         }
-        static void showItemsByList(List<List<string>> list)
+        static void ShowItemsByList(List<List<string>> list)
         {
             
-            clearPrint("----RESULT----");
+            ClearPrint("----RESULT----");
             list.Distinct();
             int counter = 0;
             foreach (var i in list)
@@ -621,13 +621,13 @@ namespace UsersList
             Console.WriteLine("\n" + counter + " user found");
         }
 
-        static void sortUsersByUsername()
+        static void SortUsersByUsername()
         {
             //just usernames ->sort
             List<string> sort = new List<string>();
 
             //get all usernames and put to sort list
-            foreach (var i in controller.getAllUsernames())
+            foreach (var i in controller.GetAllUsernames())
                 foreach (string name in i)
                     sort.Add(name);
 
@@ -636,12 +636,12 @@ namespace UsersList
             sort = sort.Distinct().ToList();
             sort.Sort();
 
-            clearPrint("----RESULT----");
+            ClearPrint("----RESULT----");
 
             int counter = 0;
             foreach (var item in sort)
             {
-                foreach (var i in controller.findByUsername(item))
+                foreach (var i in controller.FindByUsername(item))
                 {
                     if (counter == 0)
                         Console.WriteLine("uName* \tfName \tlName \tAge \tPhone");
@@ -663,19 +663,19 @@ namespace UsersList
             //debug and test//
             /*foreach (var i in sort)
                 Console.WriteLine(i);*/
-            //getKey();
+            //GetKey();
             //////////////////
 
 
         }
 
-        static void sortUsersByFirstName()
+        static void SortUsersByFirstName()
         {
             //just FirstName ->sort
             List<string> sort = new List<string>();
 
             //get all FirstName and put to sort list
-            foreach (var i in controller.getAllNames())
+            foreach (var i in controller.GetAllNames())
                 foreach (string name in i)
                     sort.Add(name);
 
@@ -684,12 +684,12 @@ namespace UsersList
             sort = sort.Distinct().ToList();
             sort.Sort();
 
-            clearPrint("----RESULT----");
+            ClearPrint("----RESULT----");
 
             int counter = 0;
             foreach (var item in sort)
             {
-                foreach (var i in controller.findByFirstname(item))
+                foreach (var i in controller.FindByFirstname(item))
                 {
                     if (counter == 0)
                         Console.WriteLine("uName \tfName* \tlName \tAge \tPhone");
@@ -711,19 +711,19 @@ namespace UsersList
             //debug and test//
             /*foreach (var i in sort)
                 Console.WriteLine(i);*/
-            //getKey();
+            //GetKey();
             //////////////////
 
 
         }
 
-        static void sortUsersByLastName()
+        static void SortUsersByLastName()
         {
             //just LastNames ->sort
             List<string> sort = new List<string>();
 
             //get all LastNames and put to sort list
-            foreach (var i in controller.getAllLastNames())
+            foreach (var i in controller.GetAllLastNames())
                 foreach (string lname in i)
                     sort.Add(lname);
 
@@ -732,12 +732,12 @@ namespace UsersList
             sort = sort.Distinct().ToList();
             sort.Sort();
 
-            clearPrint("----RESULT----");
+            ClearPrint("----RESULT----");
 
             int counter = 0;
             foreach (var item in sort)
             {
-                foreach (var i in controller.findByLastname(item))
+                foreach (var i in controller.FindByLastname(item))
                 {
                     if (counter == 0)
                         Console.WriteLine("uName \tfName \tlName* \tAge \tPhone");
@@ -759,19 +759,19 @@ namespace UsersList
             //debug and test//
             /*foreach (var i in sort)
                 Console.WriteLine(i);*/
-            //getKey();
+            //GetKey();
             //////////////////
 
 
         }
 
-        static void sortUsersByAge()
+        static void SortUsersByAge()
         {
             //just Ages ->sort
             List<string> sort = new List<string>();
 
             //get all Ages and put to sort list
-            foreach (var i in controller.getAllAges())
+            foreach (var i in controller.GetAllAges())
                 foreach (int name in i)
                     sort.Add(name.ToString());
 
@@ -780,12 +780,12 @@ namespace UsersList
             sort = sort.Distinct().ToList();
             sort.Sort();
 
-            clearPrint("----RESULT----");
+            ClearPrint("----RESULT----");
 
             int counter = 0;
             foreach (var item in sort)
             {
-                foreach (var i in controller.findByAge(item))
+                foreach (var i in controller.FindByAge(item))
                 {
                     if (counter == 0)
                         Console.WriteLine("uName \tfName \tlName \tAge* \tPhone");
@@ -807,19 +807,19 @@ namespace UsersList
             //debug and test//
             /*foreach (var i in sort)
                 Console.WriteLine(i);*/
-            //getKey();
+            //GetKey();
             //////////////////
 
 
         }
 
-        static void sortUsersByPhone()
+        static void SortUsersByPhone()
         {
             //just Phones ->sort
             List<string> sort = new List<string>();
 
             //get all Phones and put to sort list
-            foreach (var i in controller.getAllPhones())
+            foreach (var i in controller.GetAllPhones())
                 foreach (string phone in i)
                     sort.Add(phone);
 
@@ -828,12 +828,12 @@ namespace UsersList
             sort = sort.Distinct().ToList();
             sort.Sort();
 
-            clearPrint("----RESULT----");
+            ClearPrint("----RESULT----");
 
             int counter = 0;
             foreach (var item in sort)
             {
-                foreach (var i in controller.findByPhone(item))
+                foreach (var i in controller.FindByPhone(item))
                 {
                     if (counter == 0)
                         Console.WriteLine("uName \tfName \tlName \tAge \tPhone*");
@@ -855,7 +855,7 @@ namespace UsersList
             //debug and test//
             /*foreach (var i in sort)
                 Console.WriteLine(i);*/
-            //getKey();
+            //GetKey();
             //////////////////
 
         }
@@ -866,13 +866,13 @@ namespace UsersList
         //=====================================//
 
         //save with ":"(items) and ","(users)
-        static void saveUsers()
+        static void SaveUsers()
         {
             //just usernames ->sort
             List<string> sort = new List<string>();
 
             //get all usernames and put to sort list
-            foreach (var i in controller.getAllUsernames())
+            foreach (var i in controller.GetAllUsernames())
                 foreach (string name in i)
                     sort.Add(name);
 
@@ -880,20 +880,20 @@ namespace UsersList
             // Sorting sort list
             sort.Sort();
 
-            clearPrint("----SAVE----");
+            ClearPrint("----SAVE----");
 
-            string filename = getText("file name(default: test.txt)[A-Z a-z .]");
-            Console.WriteLine((validateFileName(filename)) ? "your file name is ok" : "your file name is invalid... default name: test.txt");
+            string filename = GetText("file name(default: test.txt)[A-Z a-z .]");
+            Console.WriteLine((ValidateFileName(filename)) ? "your file name is ok" : "your file name is invalid... default name: test.txt");
             string data = "";
             string forColon = "";
             try
             {
-                FileControll file = new FileControll(@"D:\" + ((validateFileName(filename)) ? filename : "test.txt"));
-                if (!file.existFile())
+                FileControll file = new FileControll(@"D:\" + ((ValidateFileName(filename)) ? filename : "test.txt"));
+                if (!file.ExistFile())
                 {
                     foreach (var item in sort)
                     {
-                        foreach (var i in controller.findByUsername(item))
+                        foreach (var i in controller.FindByUsername(item))
                         {
                             forColon = "";
                             data = "";
@@ -902,7 +902,7 @@ namespace UsersList
                                 data += forColon + j.ToString();
                                 forColon = ":";
                             }
-                            file.addText(data+",");
+                            file.AddText(data+",");
                         }
                     }
 
@@ -924,7 +924,7 @@ namespace UsersList
             }
             finally
             {
-                getKey();
+                GetKey();
             }
 
             
@@ -934,38 +934,38 @@ namespace UsersList
             //debug and test//
             /*foreach (var i in sort)
                 Console.WriteLine(i);*/
-            //getKey();
+            //GetKey();
             //////////////////
 
 
         }
         
-        static void loadUsers()
+         static void LoadUsers()
         {
             List<string> list = new List<string>();
             List<string> items = new List<string>();
 
-            clearPrint("----LOAD----");
+            ClearPrint("----LOAD----");
 
-            string filename = getText("file name(default: test.txt)[A-Z a-z .]");
+            string filename = GetText("file name(default: test.txt)[A-Z a-z .]");
 
-            Console.WriteLine((validateFileName(filename)) ? "your file name is ok" : "your file name is invalid... default name: test.txt");
+            Console.WriteLine((ValidateFileName(filename)) ? "your file name is ok" : "your file name is invalid... default name: test.txt");
 
             try
             {
-                FileControll file = new FileControll(@"D:\" + ((validateFileName(filename)) ? filename : "test.txt"));
-                if (file.existFile())
+                FileControll file = new FileControll(@"D:\" + ((ValidateFileName(filename)) ? filename : "test.txt"));
+                if (file.ExistFile())
                 {
-                    list = file.readFile().Split(splitUsers).ToList();
+                    list = file.ReadFile().Split(splitUsers).ToList();
                     foreach (string item in list)
                     {
                         if (item != "") //=> item == "username:fname:lname:age:phone"
                         {
                             items = item.Split(splitItems).ToList();
-                            if (isUserExistByUsername(items[0].ToString())==0)
+                            if (IsUserExistByUsername(items[0].ToString())==0)
                             {
                                 // uname,fname,lname,age,phone
-                                controller.insertToUsers(
+                                controller.InsertToUsers(
                                                 items[0],
                                                 items[1],
                                                 items[2],
@@ -998,7 +998,7 @@ namespace UsersList
             }
             finally
             {
-                getKey();
+                GetKey();
             }
 
             
@@ -1015,7 +1015,7 @@ namespace UsersList
             //debug and test//
             /*foreach (var i in sort)
                 Console.WriteLine(i);*/
-            //getKey();
+            //GetKey();
             //////////////////
 
 
