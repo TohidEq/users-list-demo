@@ -55,7 +55,7 @@ namespace UsersList
 
 
                     case '3': //delete user
-
+                        deleteUser();
                         break;
 
 
@@ -305,7 +305,38 @@ namespace UsersList
 
         }
 
-
+        static void deleteUser()
+        {
+            clearPrint("----DELETE USER----");
+            string username = getText("username");
+            clearPrint("----CHECKING----");
+            if (isUserExistByUsername(username) == 1) // if user exist
+            {
+                Console.WriteLine(" r u sure? (Y/N)");
+                char x = getKey();
+                Console.WriteLine("");
+                if (x == 'y' || x == 'Y')
+                {
+                    controller.deleteUser(username);
+                    
+                }
+                else
+                {
+                    Console.WriteLine("failed!");
+                }
+                
+            }
+            else if (isUserExistByUsername(username) == 0) // if user doesnt exist
+            {
+                Console.WriteLine("this user doesnt exist!");
+            }
+            else // (-1) bad input
+            {
+                Console.WriteLine("----ERROR----\n" +
+                                    "invalid username...");
+            }
+            getKey();
+        }
 
         static void addUser()
         {
@@ -319,26 +350,31 @@ namespace UsersList
             string phone = getText("phone");
 
             clearPrint("----CHECKING----");
-
             //validating input data
-            if( validate(username,firstname,lastname,birthyear,phone))
+            if (isUserExistByUsername(username) == 1)
+            {
+                Console.WriteLine("----ERROR----");
+                Console.WriteLine("a user with this username is already exist");
+            }
+            else if(validate(username,firstname,lastname,birthyear,phone))
             {
                 age = now.Year - Convert.ToInt32(birthyear);
                 if(age > 0)
                 {
                     Console.WriteLine("everything is fine");
                     controller.insertToUsers(username, firstname, lastname, age, phone);
+                    Console.WriteLine("successful!");
                 }
                 else
                 {
                     Console.WriteLine("invalid age!");
                 }
-            }
-            else
+            }else
             {
                 Console.WriteLine("----ERROR----\n" +
-                                  "pls try again...");
+                                    "pls try again...");
             }
+            
 
 
         }
@@ -431,6 +467,27 @@ namespace UsersList
         }
         
 
+
+        /// <summary>
+        /// check user exist or not
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <returns>1=exist, 0=not exist, -1=invalid username</returns>
+        static int isUserExistByUsername(string username)
+        {
+            if (validateUsername(username))
+            {
+                foreach (var i in controller.findByUsername(username))
+                {
+                    return 1;
+                }
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+        }
 
 
 

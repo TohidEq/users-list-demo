@@ -72,7 +72,7 @@ namespace UsersList
                             "WHERE username='" +username    + "'"   );
 
         }
-        
+
 
         /// <summary>
         /// Delete a user by username from users table
@@ -80,7 +80,13 @@ namespace UsersList
         /// <param name="username">username</param>
         public void deleteUser(string username)
         {
-            session.Execute("DELETE * FROM users WHERE username = '" + username + "'");
+            foreach (var i in session.Execute("select id from users where username='" + username + "' allow filtering"))
+                foreach (var id in i)
+                {
+                    session.Execute("DELETE FROM users WHERE id = " + id + "");
+                    Console.WriteLine("\nsuccessful!");
+                }
+            
         }
 
         // DELETE ALL ROWS
@@ -141,6 +147,18 @@ namespace UsersList
         public Dse.RowSet findByPhone(string phone)
         {
             return session.Execute("select username,firstname,lastname,age,phone from users where phone='" + phone + "' allow filtering");
+        }
+        //getIdByUsername
+        public string getIdByUsername(string username)
+        {
+
+            foreach (var i in session.Execute("select id from users where username='" + username + "' allow filtering"))
+                foreach (string j in i)
+                {
+                    
+                    return(j);
+                }
+            return "0";
         }
 
         //==========================//
