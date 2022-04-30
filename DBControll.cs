@@ -151,21 +151,3 @@ namespace UsersList
     }
 }
 
-
-
-
-
-
-
-
-            /*
-            
-            var row = session.Execute("select * from system.local");
-            foreach (var R2ow in row)
-            {
-                foreach (var R3ow in R2ow)
-                    Console.WriteLine(R3ow);
-            }
-
-            */
-
