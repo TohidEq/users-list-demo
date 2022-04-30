@@ -23,8 +23,8 @@ namespace UsersList
             
                
             //   username,    firstname,  lastname,   age,    phone
-            List<string> user = new List<string>();
-            List<List<string>> usersList = new List<List<string>>();
+            //List<string> sort = new List<string>();
+            //List<List<string>> usersList = new List<List<string>>();
             
 
             bool exit = false;
@@ -409,41 +409,40 @@ namespace UsersList
                     case 'u':
                     case 'U':
                     case '1'://sort BY Username
-                             //showUsersByUsername();
-
+                        sortUsersByUsername();
                         getKey();
                         break;
                     case 'f':
                     case 'F':
                     case '2'://sort BY First name
-                             //showUsersByFirstName();
+                        sortUsersByFirstName();
 
                         getKey();
                         break;
                     case 'l':
                     case 'L':
                     case '3'://sort BY Last name
-                             //showUsersByLastName();
+                        sortUsersByLastName();
 
                         getKey();
                         break;
                     case 'a':
                     case 'A':
                     case '4'://sort BY Age
-                             //showUsersByAge();
+                        sortUsersByAge();
 
                         getKey();
                         break;
                     case 'p':
                     case 'P':
                     case '5'://sort BY Phone
-                             //showUsersByPhone();
+                        sortUsersByPhone();
 
                         getKey();
                         break;
                     case 'd':
                     case 'D':
-                    case '6'://sort default
+                    case '6'://show default
                         showUsersByDefault();
 
                         getKey();
@@ -582,7 +581,7 @@ namespace UsersList
             foreach (var i in rows)
             {
                 if (counter == 0)
-                    Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
+                    Console.WriteLine("uName \tfName \tlName \tAge \tPhone \t(default cassandra sort by userid(uuid...))");
                 counter++;
                 Console.Write("\n" + counter + ". ");
                 foreach (var j in i)
@@ -594,8 +593,267 @@ namespace UsersList
             
             Console.WriteLine("\n" + counter + " user found");
         }
+        static void showItemsByList(List<List<string>> list)
+        {
+            
+            clearPrint("----RESULT----");
+            list.Distinct();
+            int counter = 0;
+            foreach (var i in list)
+            {
+                if (counter == 0)
+                    Console.WriteLine("uName \tfName \tlName \tAge \tPhone");
+                counter++;
+                Console.Write("\n" + counter + ". ");
+                foreach (var j in i)
+                {
+                    Console.Write(j + "\t");
+                }
+
+            }
+
+            Console.WriteLine("\n" + counter + " user found");
+        }
+
+        static void sortUsersByUsername()
+        {
+            //just usernames ->sort
+            List<string> sort = new List<string>();
+
+            //get all usernames and put to sort list
+            foreach (var i in controller.getAllUsernames())
+                foreach (string name in i)
+                    sort.Add(name);
+
+
+            // Sorting sort list
+            sort = sort.Distinct().ToList();
+            sort.Sort();
+
+            clearPrint("----RESULT----");
+
+            int counter = 0;
+            foreach (var item in sort)
+            {
+                foreach (var i in controller.findByUsername(item))
+                {
+                    if (counter == 0)
+                        Console.WriteLine("uName* \tfName \tlName \tAge \tPhone");
+                    counter++;
+                    Console.Write("\n" + counter + ". ");
+                    foreach (var j in i)
+                    {
+                        Console.Write(j + "\t");
+                    }
+
+                }
+            }
+
+
+            Console.WriteLine("\n" + counter + " user found");
+
+
+            //////////////////
+            //debug and test//
+            /*foreach (var i in sort)
+                Console.WriteLine(i);*/
+            //getKey();
+            //////////////////
+
+
+        }
+
+        static void sortUsersByFirstName()
+        {
+            //just usernames ->sort
+            List<string> sort = new List<string>();
+
+            //get all usernames and put to sort list
+            foreach (var i in controller.getAllNames())
+                foreach (string name in i)
+                    sort.Add(name);
+
+
+            // Sorting sort list
+            sort = sort.Distinct().ToList();
+            sort.Sort();
+
+            clearPrint("----RESULT----");
+
+            int counter = 0;
+            foreach (var item in sort)
+            {
+                foreach (var i in controller.findByFirstname(item))
+                {
+                    if (counter == 0)
+                        Console.WriteLine("uName \tfName* \tlName \tAge \tPhone");
+                    counter++;
+                    Console.Write("\n" + counter + ". ");
+                    foreach (var j in i)
+                    {
+                        Console.Write(j + "\t");
+                    }
+
+                }
+            }
+
+
+            Console.WriteLine("\n" + counter + " user found");
+
+
+            //////////////////
+            //debug and test//
+            /*foreach (var i in sort)
+                Console.WriteLine(i);*/
+            //getKey();
+            //////////////////
+
+
+        }
+
+        static void sortUsersByLastName()
+        {
+            //just usernames ->sort
+            List<string> sort = new List<string>();
+
+            //get all usernames and put to sort list
+            foreach (var i in controller.getAllLastNames())
+                foreach (string lname in i)
+                    sort.Add(lname);
+
+
+            // Sorting sort list
+            sort = sort.Distinct().ToList();
+            sort.Sort();
+
+            clearPrint("----RESULT----");
+
+            int counter = 0;
+            foreach (var item in sort)
+            {
+                foreach (var i in controller.findByLastname(item))
+                {
+                    if (counter == 0)
+                        Console.WriteLine("uName \tfName \tlName* \tAge \tPhone");
+                    counter++;
+                    Console.Write("\n" + counter + ". ");
+                    foreach (var j in i)
+                    {
+                        Console.Write(j + "\t");
+                    }
+
+                }
+            }
+
+
+            Console.WriteLine("\n" + counter + " user found");
+
+
+            //////////////////
+            //debug and test//
+            /*foreach (var i in sort)
+                Console.WriteLine(i);*/
+            //getKey();
+            //////////////////
+
+
+        }
+
+        static void sortUsersByAge()
+        {
+            //just usernames ->sort
+            List<string> sort = new List<string>();
+
+            //get all usernames and put to sort list
+            foreach (var i in controller.getAllAges())
+                foreach (int name in i)
+                    sort.Add(name.ToString());
+
+
+            // Sorting sort list
+            sort = sort.Distinct().ToList();
+            sort.Sort();
+
+            clearPrint("----RESULT----");
+
+            int counter = 0;
+            foreach (var item in sort)
+            {
+                foreach (var i in controller.findByAge(item))
+                {
+                    if (counter == 0)
+                        Console.WriteLine("uName \tfName \tlName \tAge* \tPhone");
+                    counter++;
+                    Console.Write("\n" + counter + ". ");
+                    foreach (var j in i)
+                    {
+                        Console.Write(j + "\t");
+                    }
+
+                }
+            }
+
+
+            Console.WriteLine("\n" + counter + " user found");
+
+
+            //////////////////
+            //debug and test//
+            /*foreach (var i in sort)
+                Console.WriteLine(i);*/
+            //getKey();
+            //////////////////
+
+
+        }
+
+        static void sortUsersByPhone()
+        {
+            //just usernames ->sort
+            List<string> sort = new List<string>();
+
+            //get all usernames and put to sort list
+            foreach (var i in controller.getAllPhones())
+                foreach (string phone in i)
+                    sort.Add(phone);
+
+
+            // Sorting sort list
+            sort = sort.Distinct().ToList();
+            sort.Sort();
+
+            clearPrint("----RESULT----");
+
+            int counter = 0;
+            foreach (var item in sort)
+            {
+                foreach (var i in controller.findByPhone(item))
+                {
+                    if (counter == 0)
+                        Console.WriteLine("uName \tfName \tlName \tAge \tPhone*");
+                    counter++;
+                    Console.Write("\n" + counter + ". ");
+                    foreach (var j in i)
+                    {
+                        Console.Write(j + "\t");
+                    }
+
+                }
+            }
+
+
+            Console.WriteLine("\n" + counter + " user found");
+
+
+            //////////////////
+            //debug and test//
+            /*foreach (var i in sort)
+                Console.WriteLine(i);*/
+            //getKey();
+            //////////////////
+
+        }
+
 
     }
-
-
 }

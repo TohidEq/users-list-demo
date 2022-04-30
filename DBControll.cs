@@ -90,7 +90,7 @@ namespace UsersList
         }
 
         // DELETE ALL ROWS
-        private void DeleteUsersRows()
+        public void deleteUsersAllRows()
         {
             session.Execute("TRUNCATE users");
         }
@@ -106,14 +106,29 @@ namespace UsersList
         //==========================//
 
         /// <summary>
-        /// get all userNames
+        /// get all Usernames
         /// </summary>
         /// <returns> Dse.RowSet </returns>
-        public Dse.RowSet getAllUserNames()
+        public Dse.RowSet getAllUsernames()
         {
             return session.Execute("select username from users");
         }
-
+        public Dse.RowSet getAllNames()
+        {
+            return session.Execute("select firstname from users");
+        }
+        public Dse.RowSet getAllLastNames()
+        {
+            return session.Execute("select lastname from users");
+        }
+        public Dse.RowSet getAllAges()
+        {
+            return session.Execute("select age from users");
+        }
+        public Dse.RowSet getAllPhones()
+        {
+            return session.Execute("select phone from users");
+        }
         /// <summary>
         /// get all users
         /// </summary>
@@ -122,6 +137,17 @@ namespace UsersList
         {
             return session.Execute("select username,firstname,lastname,age,phone from users");
         }
+
+
+        public List<string> getOneUserRowInListByUsername(string username)
+        {
+            List<string> rowString = new List<string>();
+            foreach(Dse.Row i in findByUsername(username))
+                foreach(var value in i)
+                    rowString.Add(value.ToString());
+            return rowString;
+        }
+
 
         //findByUsername
         public Dse.RowSet findByUsername(string username)
