@@ -659,12 +659,6 @@ namespace UsersList
             Console.WriteLine("\n" + counter + " user found");
 
 
-            //////////////////
-            //debug and test//
-            /*foreach (var i in sort)
-                Console.WriteLine(i);*/
-            //GetKey();
-            //////////////////
 
 
         }
@@ -707,12 +701,7 @@ namespace UsersList
             Console.WriteLine("\n" + counter + " user found");
 
 
-            //////////////////
-            //debug and test//
-            /*foreach (var i in sort)
-                Console.WriteLine(i);*/
-            //GetKey();
-            //////////////////
+            
 
 
         }
@@ -755,12 +744,7 @@ namespace UsersList
             Console.WriteLine("\n" + counter + " user found");
 
 
-            //////////////////
-            //debug and test//
-            /*foreach (var i in sort)
-                Console.WriteLine(i);*/
-            //GetKey();
-            //////////////////
+            
 
 
         }
@@ -803,12 +787,7 @@ namespace UsersList
             Console.WriteLine("\n" + counter + " user found");
 
 
-            //////////////////
-            //debug and test//
-            /*foreach (var i in sort)
-                Console.WriteLine(i);*/
-            //GetKey();
-            //////////////////
+           
 
 
         }
@@ -851,12 +830,7 @@ namespace UsersList
             Console.WriteLine("\n" + counter + " user found");
 
 
-            //////////////////
-            //debug and test//
-            /*foreach (var i in sort)
-                Console.WriteLine(i);*/
-            //GetKey();
-            //////////////////
+           
 
         }
 
@@ -930,13 +904,6 @@ namespace UsersList
             
 
 
-            //////////////////
-            //debug and test//
-            /*foreach (var i in sort)
-                Console.WriteLine(i);*/
-            //GetKey();
-            //////////////////
-
 
         }
         
@@ -1000,26 +967,6 @@ namespace UsersList
             {
                 GetKey();
             }
-
-            
-
-
-            /*string x = "Abbas:abbas:abbasi:23:09334443322,ahmad:ahmadi:ahamdidi:20:09883334455,Danial:Danial:DanialZadeh:18:09112342233,Tohid:Tohid:Eghdami:19:093078227788,zahra:zahra:zzzzz:23:09112223322,zoheyir:zohey:zoheyrzadeh:22:09887776655,";
-
-            
-            list = x.Split(splitUsers).ToList();
-            foreach (string item in list)
-                if (item) ;*/
-
-            //////////////////
-            //debug and test//
-            /*foreach (var i in sort)
-                Console.WriteLine(i);*/
-            //GetKey();
-            //////////////////
-
-
         }
-
     }
 }
