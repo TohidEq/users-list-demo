@@ -11,8 +11,9 @@ using Dse;
 namespace UsersList
 {
     internal class Program
-    {   
-
+    {
+        private const char splitUsers = ',';
+        private const char splitItems = ':';
         static DBControll controller = new DBControll();
 
         static void Main(string[] args)
@@ -70,9 +71,10 @@ namespace UsersList
 
 
                     case '6': //load users
-
+                        loadUsers();
                         break;
 
+                        
 
                     case '0'://exit
                     case 'q':
@@ -863,6 +865,7 @@ namespace UsersList
         //========= SAVE/LOAD USERS ===========//
         //=====================================//
 
+        //save with ":"(items) and ","(users)
         static void saveUsers()
         {
             //just usernames ->sort
@@ -899,7 +902,7 @@ namespace UsersList
                                 data += forColon + j.ToString();
                                 forColon = ":";
                             }
-                            file.addLine(data);
+                            file.addText(data+",");
                         }
                     }
 
@@ -926,6 +929,87 @@ namespace UsersList
 
             
 
+
+            //////////////////
+            //debug and test//
+            /*foreach (var i in sort)
+                Console.WriteLine(i);*/
+            //getKey();
+            //////////////////
+
+
+        }
+        
+        static void loadUsers()
+        {
+            List<string> list = new List<string>();
+            List<string> items = new List<string>();
+
+            clearPrint("----LOAD----");
+
+            string filename = getText("file name(default: test.txt)[A-Z a-z .]");
+
+            Console.WriteLine((validateFileName(filename)) ? "your file name is ok" : "your file name is invalid... default name: test.txt");
+
+            try
+            {
+                FileControll file = new FileControll(@"D:\" + ((validateFileName(filename)) ? filename : "test.txt"));
+                if (file.existFile())
+                {
+                    list = file.readFile().Split(splitUsers).ToList();
+                    foreach (string item in list)
+                    {
+                        if (item != "") //=> item == "username:fname:lname:age:phone"
+                        {
+                            items = item.Split(splitItems).ToList();
+                            if (isUserExistByUsername(items[0].ToString())==0)
+                            {
+                                // uname,fname,lname,age,phone
+                                controller.insertToUsers(
+                                                items[0],
+                                                items[1],
+                                                items[2],
+                                                Convert.ToInt32(items[3]),
+                                                items[4]);
+                                Console.WriteLine(items[0].ToString() + " added");
+                            }
+                            else
+                            {
+                                Console.WriteLine("error(user name)" + items[0].ToString());
+                            }
+                        }
+                    }
+                        
+
+                            
+                }
+                else
+                {
+
+                    Console.WriteLine("\nthis file doesnt exist...\n" +
+                                    "pls try again and test another file name.\n" +
+                                    "press any key to exit...");
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\n error \n" + e.Message);
+            }
+            finally
+            {
+                getKey();
+            }
+
+            
+
+
+            /*string x = "Abbas:abbas:abbasi:23:09334443322,ahmad:ahmadi:ahamdidi:20:09883334455,Danial:Danial:DanialZadeh:18:09112342233,Tohid:Tohid:Eghdami:19:093078227788,zahra:zahra:zzzzz:23:09112223322,zoheyir:zohey:zoheyrzadeh:22:09887776655,";
+
+            
+            list = x.Split(splitUsers).ToList();
+            foreach (string item in list)
+                if (item) ;*/
 
             //////////////////
             //debug and test//
